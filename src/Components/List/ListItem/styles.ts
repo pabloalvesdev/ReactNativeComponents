@@ -3,7 +3,6 @@ import styled, {css} from 'styled-components/native';
 export const Container = styled.View`
   ${({theme}) => css`
     background-color: ${theme.background.default};
-    height: 100px;
     width: 100%;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -34,13 +33,14 @@ interface BoxProps {
   flexSize?: number;
   background?: string;
   card?: boolean;
+  marginVertical?: number;
 }
 
 export const Box = styled.View`
   ${({theme}) => css<BoxProps>`
-    border: ${props => props.card ? '1px solid #9298A1' : 'none' };
     border-radius: 5px;
-    padding: 10px;
+    margin-top: ${props => props.marginVertical ? props.marginVertical+'px' : '0px'};
+    margin-bottom: ${props => props.marginVertical ? props.marginVertical+'px' : '0px'};
     background-color: ${props =>
       props.background ? props.background : 'none' };
     display: flex;

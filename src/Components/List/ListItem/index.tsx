@@ -17,17 +17,19 @@ const ListItem: React.FC<ListItemProps> = ({onEditItem, onDeleteItem, info, prim
   return (
     <Container>
       <Box row spaced>
-        <Label bold>{/*{item.Title}*/}Titulo Teste</Label>
-        <View>
+        <Box flexSize={5}>
+          <Label bold>{/*{item.Title}*/}Titulo Teste</Label>
+        </Box>
+        <Box flexSize={1} spaced row>
           <Icon name="pencil" size={20} color={primaryColor || 'white'} onPress={onEditItem} />
-          <Icon name="trash" size={20} color={primaryColor || 'white'} onPress={onDeleteItem} />
-        </View>
+          <Icon name="trash" size={20} color="#ee5253" onPress={onDeleteItem} />
+        </Box>
       </Box>
-      <Box row>
+      <Box marginVertical={5} row>
         <Label bold>Label 1: </Label>
         <Label>Descrição 1</Label>
       </Box>
-      <Box row>
+      <Box marginVertical={5} row>
         <Label bold>Label 2: </Label>
         <Label>
           Descrição 2
