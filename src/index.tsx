@@ -28,10 +28,10 @@ const Home = () => {
             <Label>Todos os citados componentes abaxo podem ser encontrados na pasta "./src"</Label>
             <Text></Text>
             <SectionPartial />
-            {/*<LayoutPartial />
             <NoDataPartial />
             <ListPartial />
             <DropdownSelectPartial />
+            {/* <LayoutPartial />
             <DialogAlertsPartial />
             <LoadingPartial />
             <BoxPartial />

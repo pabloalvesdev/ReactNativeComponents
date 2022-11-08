@@ -5,10 +5,6 @@ import Section from "../Components/Section";
 import { useAppContext } from "../Context";
 import Themes from "../Themes";
 
-const TesteComponent = styled.View`
-height: 136px;
-`;
-
 const SectionPartial: React.FC = () => {
     const {theme} = useAppContext();
     const primaryColor = Themes[theme].primary.default;

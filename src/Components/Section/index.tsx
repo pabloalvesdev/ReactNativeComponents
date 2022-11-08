@@ -28,7 +28,7 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
     //Animations
     const turnRightIcon = () => Animated.timing(rotateValue, { toValue: 0, duration: 100, useNativeDriver: true }).start();
     const turnDownIcon = () => Animated.timing(rotateValue, { toValue: 1, duration: 100, useNativeDriver: true }).start();
-    const expandContainer = () =>  Animated.timing(heightValue, { toValue: childrenHeight+50, duration: 200, useNativeDriver: false }).start();
+    const expandContainer = () =>  Animated.timing(heightValue, { toValue: 300, duration: 200, useNativeDriver: false }).start();
     const retractContainer = () => Animated.timing(heightValue, { toValue: 50, duration: 200, useNativeDriver: false }).start();
     const showContent = () => Animated.timing(opacityValue, { toValue: 1, duration: 300, useNativeDriver: true }).start();
     const hideContent = () => Animated.timing(opacityValue, { toValue: 0, duration: 300, useNativeDriver: true }).start();
@@ -53,9 +53,8 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
         setVisible(a => !a);
     }
     
-    const getHeight = (a: LayoutChangeEvent) => setChildrenHeight(a.nativeEvent.layout.height);
-
-    useEffect(()=> console.log(`Expandir para ${childrenHeight}`),[visible, childrenHeight])
+    // AQUI É UMA FUNCAO QUE EU CONSIGO PEGAR O TAMANHO DO CONTAINER AO RENDERIZAR, MAS AINDA N ESTA TERMINADO. PRECISO FAZER COM QUE ELE PEGUE ESSE VALOR E TRANSFORME EM UMA ANIMCAO ANIMADA. MAS ISSO PODE SER DEPOIS.
+    // const getHeight = (a: LayoutChangeEvent) => setChildrenHeight(a.nativeEvent.layout.height);
 
     return(
         <Controller
@@ -78,7 +77,11 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
                         color={primaryColor || 'white'} 
                     />
                 </Animated.View>
-            <Animated.View onLayout={getHeight} style={{opacity: opacityValue}}>{children}</Animated.View>
+                <Animated.ScrollView 
+                    //onLayout={getHeight} 
+                    style={{opacity: opacityValue}}>
+                        {children}
+                </Animated.ScrollView>
         </Controller>
     );
 }
