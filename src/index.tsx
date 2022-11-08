@@ -27,8 +27,8 @@ const Home = () => {
             <Label bold title>Components</Label>
             <Label>Todos os citados componentes abaxo podem ser encontrados na pasta "./src"</Label>
             <Text></Text>
-            <LayoutPartial />
             <SectionPartial />
+            {/*<LayoutPartial />
             <NoDataPartial />
             <ListPartial />
             <DropdownSelectPartial />
@@ -37,7 +37,7 @@ const Home = () => {
             <BoxPartial />
             <FilterTextPartial />
             <FieldsPartial />
-            <LabelsPartial />
+            <LabelsPartial /> */}
         </Layout>
     )
 };

@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useRef, useState} from 'react';
-import {Animated, Text, View} from 'react-native';
+import {Animated, LayoutChangeEvent, Text, View} from 'react-native';
 import { Controller, Title } from './styles';
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -11,71 +11,65 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
     const [visible, setVisible] = useState<boolean>(false);
+    const [childrenHeight, setChildrenHeight] = useState(0);
+    const alignTitle = useRef(new Animated.Value(0)).current;
     const rotateValue = useRef(new Animated.Value(0)).current;
     const opacityValue = useRef(new Animated.Value(0)).current;
     const heightValue = useRef(new Animated.Value(50)).current;
     const interpolatedRotate = rotateValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '-90deg']
+        outputRange: ['-90deg', '0deg']
+    });
+    const interpolatrAlignTitle = alignTitle.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['100%', '0%']
     });
 
-    const changeVisible = () => setVisible(a => !a);
+    //Animations
+    const turnRightIcon = () => Animated.timing(rotateValue, { toValue: 0, duration: 100, useNativeDriver: true }).start();
+    const turnDownIcon = () => Animated.timing(rotateValue, { toValue: 1, duration: 100, useNativeDriver: true }).start();
+    const expandContainer = () =>  Animated.timing(heightValue, { toValue: childrenHeight+50, duration: 200, useNativeDriver: false }).start();
+    const retractContainer = () => Animated.timing(heightValue, { toValue: 50, duration: 200, useNativeDriver: false }).start();
+    const showContent = () => Animated.timing(opacityValue, { toValue: 1, duration: 300, useNativeDriver: true }).start();
+    const hideContent = () => Animated.timing(opacityValue, { toValue: 0, duration: 300, useNativeDriver: true }).start();
+    const titleToCenter = () => Animated.timing(alignTitle, { toValue: 1, duration: 200, useNativeDriver: false }).start();
+    const titleToLeft = () => Animated.timing(alignTitle, { toValue: 0, duration: 200, useNativeDriver: false }).start();
 
     const openAnim = () => {
-        Animated.timing(rotateValue, {
-            toValue: 1,
-            duration: 100,
-            useNativeDriver: true
-        }).start();
-        Animated.timing(heightValue, {
-            toValue: 50,
-            duration: 200,
-            useNativeDriver: false
-        }).start();
-        Animated.timing(opacityValue, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: true
-        }).start();
+       turnDownIcon();
+       expandContainer();
+       showContent();
+       titleToCenter();
     };
     const hideAnim = () => {
-        Animated.timing(rotateValue, {
-            toValue: 0,
-            duration: 100,
-            useNativeDriver: true
-        }).start();
-        Animated.timing(heightValue, {
-            toValue: 300,
-            duration: 200,
-            useNativeDriver: false
-        }).start();
-        Animated.timing(opacityValue, {
-            toValue: 1,
-            duration: 300,
-            useNativeDriver: true
-        }).start();
+        turnRightIcon();
+        retractContainer();
+        hideContent();
+        titleToLeft();
     };
     const runAnimation = () => {
-        if(visible) hideAnim();
-        else openAnim();
+        if(!visible) openAnim();
+        else hideAnim();
+        setVisible(a => !a);
     }
- 
-    useEffect(() => {
-        runAnimation();
-    },[visible]);
+    
+    const getHeight = (a: LayoutChangeEvent) => setChildrenHeight(a.nativeEvent.layout.height);
+
+    useEffect(()=> console.log(`Expandir para ${childrenHeight}`),[visible, childrenHeight])
+
     return(
         <Controller
             primaryColor={primaryColor}
-            style={{height: heightValue}} 
-            onTouchEndCapture={changeVisible}
+            style={{ height: heightValue }} 
+            onTouchEndCapture={runAnimation}
         >
-            <Title primaryColor={primaryColor}>{title}</Title>
+            <Title style={{ alignSelf: 'center', minWidth: interpolatrAlignTitle }} primaryColor={primaryColor}>{title}</Title>
                 <Animated.View
                     style={{
                         position: 'absolute',
                         right: 10,
                         top: 5,
-                        transform: [{rotate: interpolatedRotate}]
+                        transform: [{ rotate: interpolatedRotate }]
                     }} 
                 >
                     <Icon 
@@ -84,7 +78,7 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
                         color={primaryColor || 'white'} 
                     />
                 </Animated.View>
-            <Animated.ScrollView style={{opacity: opacityValue}}>{children}</Animated.ScrollView>
+            <Animated.View onLayout={getHeight} style={{opacity: opacityValue}}>{children}</Animated.View>
         </Controller>
     );
 }

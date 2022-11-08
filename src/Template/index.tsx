@@ -19,15 +19,9 @@ export function AppTemplate({children}: Props) {
   return (
     <ThemeProvider theme={Themes[theme]}>
       <StatusBar backgroundColor={Themes[theme].background.default} />
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: Themes[theme].background.default,
-        }}>
         <Loading />
         <Dialog />
         {children}
-      </View>
     </ThemeProvider>
   );
 }

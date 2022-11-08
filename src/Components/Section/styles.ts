@@ -15,7 +15,7 @@ export const Controller = styled(Animated.View)`
     `}
 `;
 
-export const Title = styled.Text`
+export const Title = styled(Animated.Text)`
     ${({theme}) => css<ComponentProps>`
         color: ${a => a.primaryColor || 'white'};
         font-size: 17px;

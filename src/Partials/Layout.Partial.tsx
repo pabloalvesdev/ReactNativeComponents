@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { Label } from "../Components/Label";
 import Section from "../Components/Section";
 import { useAppContext } from "../Context";
@@ -8,7 +9,12 @@ const LayoutPartial: React.FC = () => {
     const primaryColor = Themes[theme].primary.default;
     return(
         <Section primaryColor={primaryColor} title="Layout">
-            <Label>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae, necessitatibus laudantium aliquid sunt est quis dolorem deleniti. Voluptatibus cum praesentium dolores, cupiditate nemo ullam, fugiat, architecto ipsa eos laboriosam aliquam.</Label>
+            <Label>Layout padrão, composto por uma View de 100% x 100% com o background padrao de acordo com o tema utilizado na aplicação. Display é "flex".</Label>
+            <Text />
+            <Label bold>Props</Label>
+            <Text />
+            <Label bold>scroll: boolean</Label>
+            <Label>Altera de um layout fixo para um layout em modo de Scroll.</Label>
         </Section>
     )
 };
