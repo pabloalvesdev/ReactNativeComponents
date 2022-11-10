@@ -8,6 +8,7 @@ interface ComponentProps {
 export const Controller = styled(Animated.View)`
     ${({theme}) => css<ComponentProps>`
         border-radius: 7px;
+        min-height: 50px;
         padding: 10px;
         border: 2px solid ${a => a.primaryColor || 'white'};
         margin-top: 10px;

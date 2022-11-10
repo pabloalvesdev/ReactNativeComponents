@@ -7,9 +7,10 @@ interface SectionProps {
   children: ReactNode;
   title: string;
   primaryColor?: string;
+  height?: number;
 }
 
-const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
+const Section: React.FC<SectionProps> = ({ children, title, primaryColor, height }) => {
     const [visible, setVisible] = useState<boolean>(false);
     const [childrenHeight, setChildrenHeight] = useState(0);
     const alignTitle = useRef(new Animated.Value(0)).current;
@@ -28,7 +29,7 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
     //Animations
     const turnRightIcon = () => Animated.timing(rotateValue, { toValue: 0, duration: 100, useNativeDriver: true }).start();
     const turnDownIcon = () => Animated.timing(rotateValue, { toValue: 1, duration: 100, useNativeDriver: true }).start();
-    const expandContainer = () =>  Animated.timing(heightValue, { toValue: 300, duration: 200, useNativeDriver: false }).start();
+    const expandContainer = () =>  Animated.timing(heightValue, { toValue: height || 200, duration: 200, useNativeDriver: false }).start();
     const retractContainer = () => Animated.timing(heightValue, { toValue: 50, duration: 200, useNativeDriver: false }).start();
     const showContent = () => Animated.timing(opacityValue, { toValue: 1, duration: 300, useNativeDriver: true }).start();
     const hideContent = () => Animated.timing(opacityValue, { toValue: 0, duration: 300, useNativeDriver: true }).start();
@@ -77,9 +78,9 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor }) => {
                         color={primaryColor || 'white'} 
                     />
                 </Animated.View>
-                <Animated.ScrollView 
+                <Animated.ScrollView
                     //onLayout={getHeight} 
-                    style={{opacity: opacityValue}}>
+                    style={{ opacity: opacityValue }}>
                         {children}
                 </Animated.ScrollView>
         </Controller>
