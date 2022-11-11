@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const AppContextProvider: React.FC<Props> = ({children}) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [loading, setLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<{
     visible: boolean;

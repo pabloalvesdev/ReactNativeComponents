@@ -2,8 +2,9 @@ import {ITheme} from '../Interfaces/ITheme';
 
 const light: ITheme = {
   background: {
-    default: '#FEF2D8',
-    lighter: '#323B4E ',
+    default: 'white',
+    //default: '#ecf0f1',
+    lighter: 'lightgray',
   },
   secondary: '#9A57E6',
   primary: {

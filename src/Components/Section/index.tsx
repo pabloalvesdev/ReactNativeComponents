@@ -60,7 +60,17 @@ const Section: React.FC<SectionProps> = ({ children, title, primaryColor, height
     return(
         <Controller
             primaryColor={primaryColor}
-            style={{ height: heightValue }} 
+            style={{ 
+                height: heightValue,
+                // shadowColor: "#000",
+                // shadowOffset: {
+                //     width: 0,
+                //     height: 2,
+                // },
+                // shadowOpacity: 0.25,
+                // shadowRadius: 3.84,
+                // elevation: 5 
+            }} 
             onTouchEndCapture={runAnimation}
         >
             <Title style={{ alignSelf: 'center', minWidth: interpolatrAlignTitle }} primaryColor={primaryColor}>{title}</Title>
